@@ -1,0 +1,43 @@
+@Metadata.layer: #CORE
+annotate view znm_marks_cds
+    with 
+{
+@UI.facet: [{id: 'Marks',
+                 purpose: #STANDARD,
+                 type: #IDENTIFICATION_REFERENCE,
+                 label: 'Marks',
+                 position: 10
+                 } ]
+@UI:{ lineItem: [{position:10, label:'Student ID' } ],
+            identification: [ { position:10, label:'Student ID' } ],
+            selectionField: [{ position:10  }]  
+            }
+    StudentId;
+     @UI:{ lineItem: [{position:20, label:'ExamNo' } ],
+            identification: [ { position:20, label:'ExamNo' } ],
+            selectionField: [{ position:20  }]  
+            }
+    ExamNo;
+    @UI:{ lineItem: [{position:30, label:'SubNo' } ],
+            identification: [ { position:30, label:'SubNo' } ],
+            selectionField: [{ position:30  }]  
+            }
+    SubNo;
+   
+    @UI:{ lineItem: [{position:40, label:'sub_name' } ],
+            identification: [ { position:40, label:'sub_name' } ],
+            selectionField: [{ position:40  }]  
+            }
+    sub_name;
+     @UI:{ lineItem: [{position:50, label:'Marks' } ],
+            identification: [ { position:50, label:'Marks' } ],
+            selectionField: [{ position:50  }]  
+            }
+    Marks;
+    
+    /* Associations */
+    //@UI:{ lineItem: [{position:60, label:'exams' } ]}
+    
+    //_exams;
+    
+}

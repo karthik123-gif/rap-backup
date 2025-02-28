@@ -1,0 +1,68 @@
+managed implementation in class zbp_nm_student_cds unique;
+//strict ( 2 );
+
+define behavior for znm_student_cds //alias <alias_name>
+persistent table znm_student
+lock master
+//authorization master ( instance )
+//etag master <field_name>
+{
+  create;
+  update;
+  delete;
+  field (mandatory : create ) StudentId;
+  association _exams { create; }
+
+  mapping for znm_student {
+  StudentId = student_id;
+  StudentName = student_name;
+  Class = class;
+  ClassSection = class_section;
+  AvgMarks =  avg_marks;
+
+  }
+}
+
+define behavior for znm_exams_cds //alias <alias_name>
+persistent table znm_exams
+lock dependent by _student
+//authorization dependent by _student
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly ) StudentId;
+  field ( mandatory : create )ExamNo;
+  field ( readonly ) exam_name;
+  association _student;
+  association _marks { create; }
+
+  mapping for znm_exams {
+  StudentId = student_id;
+  ExamNo = exam_no;
+
+  }
+}
+
+define behavior for znm_marks_cds //alias <alias_name>
+persistent table znm_marks
+lock dependent by _students
+//authorization dependent by <no_to_master_association found>
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly ) StudentId, ExamNo;
+  field ( mandatory : create ) SubNo;
+  field ( readonly ) sub_name;
+  association _exams;
+  association _students;
+
+  mapping for znm_marks{
+  Studentid = student_id;
+    SubNo = sub_no;
+    ExamNo = exam_no;
+    Marks = marks;
+  }
+
+}

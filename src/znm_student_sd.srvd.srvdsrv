@@ -1,0 +1,6 @@
+@EndUserText.label: 'service definition'
+define service Znm_student_sd {
+  expose znm_student_cds;
+  expose znm_exams_cds;
+  expose znm_marks_cds;
+}

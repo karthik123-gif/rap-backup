@@ -1,0 +1,64 @@
+@Metadata.layer:#CORE
+@UI: { 
+        headerInfo: { typeName: 'Student',
+                       typeNamePlural: 'Students',
+                       title: { type:#STANDARD, label: 'Student', value: 'StudentName' } }
+
+}
+@Search.searchable: true
+annotate view znm_student_cds
+    with 
+{
+
+    @UI.facet: [{id: 'Student',
+                 purpose: #STANDARD,
+                 type: #IDENTIFICATION_REFERENCE,
+                 label: 'Student',
+                 position: 10
+                 },
+                 {id: 'Exams',
+                 purpose: #STANDARD,
+                 type:#LINEITEM_REFERENCE,
+                 label: 'List of Exams',
+                 position: 20,
+                 targetElement: '_exams'
+                 }
+                 ] 
+   
+    @UI:{ lineItem: [{position:10, label:'Student ID' } ],
+            identification: [ { position:10, label:'Student ID' } ],
+            selectionField: [{ position:10  }]  
+            }
+     @Search.defaultSearchElement: true
+     StudentId;
+     @UI:{ lineItem: [{position:20, label:'StudentName' } ],
+            identification: [ { position:20, label:'StudentName' } ],
+            selectionField: [{ position:20  }]  
+            }
+     StudentName;
+     @UI:{ lineItem: [{position:30, label:'Class' } ],
+            identification: [ { position:30, label:'Class' } ],
+            selectionField: [{ position:30  }]  
+            }
+      @Consumption.valueHelpDefinition: [ {
+        entity: { name: 'znm_student_cds', element: 'Class' }
+    }]
+     Class;
+     @UI:{ lineItem: [{position:40, label:'ClassSection' } ],
+            identification: [ { position:40, label:'ClassSection' } ] ,
+             selectionField: [{ position:30  }]  
+            }
+      @Consumption.valueHelpDefinition: [ {
+        entity: { name: 'znm_class_cds', element: 'Value' }
+    }]
+     ClassSection;
+     @UI:{ lineItem: [{position:50, label:'AvgMarks' } ],
+            identification: [ { position:50, label:'AvgMarks' } ]  
+            }
+     AvgMarks;
+     @UI:{ lineItem: [{position:60, label:'exams' } ]
+            }
+     /* Associations */
+     _exams;
+    
+}
