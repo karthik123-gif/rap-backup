@@ -3,7 +3,7 @@
  <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
   <asx:values>
    <DEVC>
-    <CTEXT>practise annotations</CTEXT>
+    <CTEXT>package of nagamani</CTEXT>
    </DEVC>
   </asx:values>
  </asx:abap>

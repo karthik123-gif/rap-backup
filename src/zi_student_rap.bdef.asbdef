@@ -1,0 +1,65 @@
+managed implementation in class zbp_i_student_rap unique;
+//strict ;
+
+with draft ;
+define behavior for ZI_STUDENT_RAP alias Student
+persistent table zmpack_rap
+
+draft table zmpack_DRAFT_rap
+
+lock master total etag LastChangedAt
+authorization master ( instance )
+etag master Locallastchangedat
+{
+  create;
+  update ( precheck );
+  delete;
+   // Draft actions
+draft action Resume;  // Added
+ draft action Edit;    // Added
+ draft action Activate optimized;
+ draft action Discard;
+
+  // Determination for prepare action
+  draft determine action Prepare;  // Added
+
+association _academicres {create;}
+
+  field ( numbering : managed, readonly ) Id;
+  field ( readonly ) Genderdesc;
+  action( features : instance ) setAdmitted result [1] $self;
+  validation validateAge on save { field Age; create;}
+  determination updateCourseDuration on save {field Course; }
+
+  mapping for zmpack_rap {
+               Id = id;
+            Firstname = firstname;
+              Lastname = lastname;
+                   Age = age;
+                Course = course;
+        Courseduration = courseduration;
+                Status = status;
+               Gender =  gender;
+                   Dob = dob;
+                   LastChangedAt = lastchangedat;
+                   LocalLastChangedAt = locallastchangedat;
+  }
+}
+define behavior for ZI_AR_RAP alias AcademicResult
+persistent table ZACADEMICDETAILS
+draft table ZACADEMIC_DRAFT
+lock dependent by _student
+authorization dependent by _student
+//etag master <field_name>
+{
+  update;
+  delete;
+  association _student;
+
+  field ( readonly ) id;
+  field ( readonly ) Course_desc;
+  field ( readonly ) Semester_desc;
+  field ( readonly ) Semres_desc;
+
+
+}

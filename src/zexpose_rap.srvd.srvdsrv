@@ -1,0 +1,5 @@
+@EndUserText.label: 'service definition for student'
+define service ZEXPOSE_RAP {
+  expose ZI_STUDENT_RAP as Student;
+  expose ZI_AR_RAP      as AcademicRes;
+}
