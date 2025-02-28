@@ -1,0 +1,4 @@
+@EndUserText.label: 'v4 demo'
+define service Znm_student1_cds {
+  expose zdemo_v4;
+}

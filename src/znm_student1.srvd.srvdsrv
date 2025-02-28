@@ -1,0 +1,9 @@
+@EndUserText.label: 'sdef'
+define service Znm_student1 {
+  expose znm_student1_cds;
+  expose znm1_attendance_cds;
+  expose znm_marks1_cds;
+  expose znm_lib_records_cds;
+  expose znm_exam1_cds;
+  expose zdemo_v4;
+}

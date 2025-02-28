@@ -1,0 +1,46 @@
+@Metadata.layer:  #CORE
+@UI: { 
+        headerInfo: { typeName: 'Attendance',
+                       typeNamePlural: 'Attendances',
+                       title: { type:#STANDARD, label: 'Attendance', value: 'NameOfMonth' } }
+                     }
+@Search.searchable: true
+annotate view znm1_attendance_cds
+    with 
+{
+@UI.facet: [{id: 'Attend',
+                 purpose: #STANDARD,
+                 type: #IDENTIFICATION_REFERENCE,
+                 label: 'Attendance',
+                 position: 10
+                 }
+                 ] 
+   @UI:{ lineItem: [{position:10, label:'Student ID' } ],
+            identification: [ { position:10, label:'Student ID' } ],
+            selectionField: [{ position:10  }]  
+            }
+    StudentId;
+    @UI:{ lineItem: [{position:20, label:' Name Of Month' } ],
+            identification: [ { position:20, label:' Name Of Month' } ],
+            selectionField: [{ position:20  }]  
+            }
+    @Search.defaultSearchElement: true
+    NameOfMonth;
+    @UI:{ lineItem: [{position:30, label:'Total Classes' } ],
+            identification: [ { position:30, label:'Total Classes' } ],
+            selectionField: [{ position:30  }]  
+            }
+    TotalClasses;
+    @UI:{ lineItem: [{position:40, label:'Attended Classes' } ],
+            identification: [ { position:40, label:'Attended Classes' } ],
+            selectionField: [{ position:40  }]  
+            }
+    AttendedClasses;
+    @UI:{ lineItem: [{position:60, label:'Attendance Percent' } ],
+            identification: [ { position:60, label:'Attendance Percent' } ],
+            selectionField: [{ position:60  }]  
+            }
+    AttendancePercent;
+   
+    
+}

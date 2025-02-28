@@ -1,0 +1,54 @@
+@Metadata.layer: #CORE
+@UI: { 
+        headerInfo: { typeName: 'Exam',
+                       typeNamePlural: 'Exams',
+                       title: { type:#STANDARD, label: 'Exams', value: 'ExamNo' } }
+                     }
+@Search.searchable: true
+
+annotate view znm_exam1_cds
+    with 
+{
+  @UI.facet: [{id: 'Exams',
+                 purpose: #STANDARD,
+                 type: #IDENTIFICATION_REFERENCE,
+                 label: 'Exams',
+                 position: 10
+                 },
+                 {id: 'Marks',
+                 purpose: #STANDARD,
+                 type: #LINEITEM_REFERENCE,
+                 label: 'Marks',
+                 position: 20,
+                 targetElement: '_marks'
+                 } 
+                 ] 
+ /*@UI.facet: [
+    { id: 'StudentDetails', label: 'Student Details', purpose: #STANDARD, type: #IDENTIFICATION_REFERENCE, targetElement: '_Marks_f' },
+    { id: 'ExamDetails', label: 'Exam Details', purpose: #STANDARD, type: #IDENTIFICATION_REFERENCE, targetElement: '_student' },
+    { id: 'MarksDetails', label: 'Marks Details', purpose: #STANDARD, type: #LINEITEM_REFERENCE , targetElement: '_marks' }
+] */
+  
+    @UI:{ lineItem: [{position:10, label:'Student ID' } ],
+            identification: [ { position:10, label:'Student ID' } ],
+            selectionField: [{ position:10  }]  
+            }
+    StudentId;
+    @UI:{ lineItem: [{position:20, label:'ExamNo' } ],
+            identification: [ { position:20, label:'ExamNo' } ],
+            selectionField: [{ position:20  }]  
+            }
+    @Search.defaultSearchElement: true
+    ExamNo;
+    @UI:{ lineItem: [{position:30, label:'exam_name' } ],
+           identification: [ { position:30, label:'exam_name' } ],
+           selectionField: [{ position:30  }]  
+            }
+    exam_name;
+    
+    /* Associations */
+   // _marks;
+   // _scl_exams;
+   // _student;element_name;
+    
+}

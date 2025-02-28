@@ -1,0 +1,60 @@
+@Metadata.layer: #CORE
+annotate view znm_lib_records_cds
+    with 
+{
+@UI.facet: [{id: 'Library',
+                 purpose: #STANDARD,
+                 type: #IDENTIFICATION_REFERENCE,
+                 label: 'record details',
+                 position: 10
+                 } ]
+   @UI:{ lineItem: [{position:20, label:'LibMemId' } ],
+            identification: [ { position:20, label:'LibMemId' } ]
+             
+            }
+    LibMemId;
+    @UI:{ lineItem: [{position:20, label:'BookId' } ],
+            identification: [ { position:20, label:'BookId' } ]
+             
+            }
+    @Search.defaultSearchElement: true
+    BookId;
+    @UI:{ lineItem: [{position:20, label:'BookTitle' } ],
+            identification: [ { position:20, label:'BookTitle' } ]
+             
+            }
+    BookTitle;
+    @UI:{ lineItem: [{position:20, label:'BorrowDate' } ],
+            identification: [ { position:20, label:'BorrowDate' } ]
+             
+            }
+    BorrowDate;
+    @UI:{ lineItem: [{position:20, label:'DueDate' } ],
+            identification: [ { position:20, label:'DueDate' } ]
+             
+            }
+    DueDate;
+    @UI:{ lineItem: [{position:20, label:'ReturnDate' } ],
+            identification: [ { position:20, label:'ReturnDate' } ]
+             
+            }
+    ReturnDate;
+   
+    @UI:{ lineItem: [{position:20, label:'FineAmount' } ],
+            identification: [ { position:20, label:'FineAmount' } ]
+             
+            } 
+     
+    FineAmount; 
+  /*  @UI:{ lineItem: [{position:20, label:'FineAmount' } ],
+            identification: [ { position:20, label:'FineAmount' } ]
+             
+            }
+    CukyField; */
+    @UI:{ lineItem: [{position:20, label:'StudentId' } ],
+            identification: [ { position:20, label:'StudentId' } ]
+             
+            }
+    StudentId;
+    
+}

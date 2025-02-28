@@ -1,0 +1,35 @@
+managed implementation in class zbp_demo_v4 unique;
+//strict ( 2 );
+with draft ;
+
+define behavior for zdemo_v4 //alias <alias_name>
+persistent table znm_student1
+draft table znm_student1_c
+lock master total etag LastChangedAt
+authorization master ( instance )
+etag master Locallastchangedat
+{
+  create;
+  update;
+  delete;
+  field ( mandatory : create ) StudentId , StudentName , Class,ClassSection;
+
+  draft action Resume;  // Added
+ draft action Edit;    // Added
+ draft action Activate ;
+ draft action Discard;
+
+ //  Determination for prepare action
+  draft determine action Prepare;  // Added
+
+
+  mapping for znm_student1 {
+  StudentId = student_id;
+  StudentName = student_name;
+  Class = class;
+  ClassSection = class_section;
+  AvgMarks = avg_marks;
+  AttendPercent = attend_percent;
+  Status = status;
+  }
+}

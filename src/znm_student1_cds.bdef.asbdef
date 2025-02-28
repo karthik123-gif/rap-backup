@@ -1,0 +1,136 @@
+managed implementation in class zbp_nm_stud1_c unique;
+strict ( 2 );
+
+//with draft ;
+define behavior for znm_student1_cds alias Student
+persistent table znm_student1
+//draft table znm_student1_d
+lock master// total etag LastChangedAt
+authorization master ( instance )
+//etag master Locallastchangedat
+{
+ create { default function GetDefaultsForCreate; }
+  update;
+  delete;
+     // Draft actions
+//draft action Resume;  // Added
+// draft action Edit;    // Added
+// draft action Activate optimized;
+// draft action Discard;
+
+  // Determination for prepare action
+//  draft determine action Prepare;  // Added
+ //field ( readonly : update ) StudentId,StudentName;
+ field (readonly ) AvgMarks;
+ field ( readonly ) AttendPercent;
+   //field ( mandatory : create ) StudentName;
+ action  openCreateDialog parameter ZI_CreateStudent   result [1] $self;
+
+action( features : instance ) AttendPercent result [1] $self;
+  association _attendance { create; }
+  association _exams { create; }
+  association _library { create; }
+
+//determination CalAttend on modify { create; update; }
+validation validateclass on save { field Class; }
+  mapping for znm_student1 {
+  StudentId = student_id;
+  StudentName = student_name;
+  Class = class;
+  ClassSection = class_section;
+  AvgMarks = avg_marks;
+  AttendPercent = attend_percent;
+  Status = status;
+  }
+}
+
+define behavior for znm1_attendance_cds alias Attendance
+persistent table znm_attendance
+//draft table znm_attendance_d
+lock dependent by _student
+authorization dependent by _student
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly ) StudentId;
+  field ( readonly : update ) NameOfMonth;
+  association _student;
+ determination CalculateAttendance on modify  {create; update;  }
+  mapping for znm_attendance {
+  StudentId = student_id;
+  NameOfMonth = name_of_month;
+  TotalClasses = total_classes;
+  AttendedClasses = attended_classes;
+  AttendancePercent = attendance_percent;
+  }
+}
+
+define behavior for znm_exam1_cds alias Exams
+persistent table znm_exam1
+//draft table znm_exam1_d
+lock dependent by _student
+authorization dependent by _student
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly ) StudentId, exam_name;
+  field ( readonly : update )  ExamNo;
+  association _student;
+  association _marks { create; }
+  mapping for znm_exam1 {
+  StudentId = student_id;
+  ExamNo = exam_no;
+
+  }
+}
+
+define behavior for znm_marks1_cds alias Marks
+persistent table znm_marks1
+//draft table znm_marks1_d
+lock dependent by _student
+authorization dependent by _student
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly ) StudentId, ExamNo, sub_name;
+  field ( readonly : update )  SubNo;
+  association _student;
+  association _exams;
+determination CalculateAvgMarks on modify { create; update; delete; }
+  mapping for znm_marks1 {
+  StudentId = student_id;
+  ExamNo = exam_no;
+   Marks = marks;
+   SubNo =  sub_no;
+  }
+
+}
+
+define behavior for znm_lib_records_cds alias Library
+persistent table znm_lib_records
+//draft table znm_lib_record_D
+lock dependent by _student
+authorization dependent by _student
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( mandatory : create ) LibMemId, BookId;
+  field ( readonly ) StudentId;
+  association _student;
+
+  determination CalculateFine on modify { create; update; }
+  mapping for znm_lib_records {
+  BookId = book_id;
+  BookTitle = book_title;
+  BorrowDate = borrow_date;
+  DueDate = due_date;
+  FineAmount = fine_amount;
+  LibMemId = lib_mem_id;
+  ReturnDate = return_date;
+  StudentId = student_id;
+  }
+}

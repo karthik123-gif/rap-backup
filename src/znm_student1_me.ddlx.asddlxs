@@ -1,0 +1,125 @@
+@Metadata.layer:#CORE
+@UI: { 
+    headerInfo: { 
+        typeName: 'Student',
+        typeNamePlural: 'Students',
+        title: { type:#STANDARD, label: 'Student', value: 'StudentName' } 
+    }
+}
+@Search.searchable: true
+annotate view znm_student1_cds with 
+{
+    @UI.facet: [
+        {
+            id: 'Student',
+            purpose: #STANDARD,
+            type: #IDENTIFICATION_REFERENCE,
+            label: 'Student Details',
+            position: 10
+        },
+        {
+            id: 'Exams',
+            purpose: #STANDARD,
+            type:#LINEITEM_REFERENCE,
+            label: 'List of Exams',
+            position: 20,
+            targetElement: '_exams'
+        },
+        {
+            id: 'Library',
+            purpose: #STANDARD,
+            type:#LINEITEM_REFERENCE,
+            label: 'Library Records',
+            position: 30,
+            targetElement: '_library'
+        },
+        {
+            id: 'Attend',
+            purpose: #STANDARD,
+            type:#LINEITEM_REFERENCE,
+            label: 'Attendance History',
+            position: 40,
+            targetElement: '_attendance'
+            
+        }
+       
+    ] 
+@Search.defaultSearchElement: true
+    /* Student Basic Information */
+    @UI:{ lineItem: [{position:10, label:'Student ID' },
+    { type: #FOR_ACTION, dataAction: 'openCreateDialog', label: 'Create exams' } ],
+          identification: [ { position:10, label:'Student ID' },
+           { type: #FOR_ACTION, dataAction: 'openCreateDialog', label: 'Create Student' } ],
+          selectionField: [{ position:10  }] 
+          }
+        
+    
+  
+   
+    StudentId;
+//     @UI: {
+//    lineItem: [{position:20, label:'Student Name' },
+//     { type: #FOR_ACTION, dataAction: 'openCreateDialog', label: 'Create exams' } ],
+//    identification: [ { position:20, label:'Student Name' },
+//    { type: #FOR_ACTION, dataAction: 'openCreateDialog', label: 'Create Student' } ]
+//  }
+   
+    @UI:{ lineItem: [{position:20, label:'Student Name' } ],
+          identification: [ { position:20, label:'Student Name' } ],
+          selectionField: [{ position:20  }] 
+           
+        }
+      // @EndUserText.label: 'Semantic Key(#VisibleFilters)'
+    StudentName;
+
+    @UI:{ lineItem: [{position:30, label:'Class' } ],
+          identification: [ { position:30, label:'Class' } ],
+          selectionField: [{ position:30  }]  
+        }
+    @Consumption.valueHelpDefinition: [ {
+        entity: { name: 'znm_student_cds', element: 'Class'
+        }
+    }]
+    
+    Class;
+
+    @UI:{ lineItem: [{position:40, label:'Class Section' } ],
+          identification: [ { position:40, label:'Class Section' } ],
+          selectionField: [{ position:40  }]  
+        }
+    @Consumption.valueHelpDefinition: [ {
+        entity: { name: 'znm_class_cds', element: 'Value' }
+    }]
+    ClassSection;
+
+    @UI:{ lineItem: [{position:50, label:'Avg Marks' } ],
+          identification: [ { position:50, label:'Avg Marks' } ]  
+        }
+    AvgMarks;
+    @UI:{ lineItem: [{position:60, label:'Attend Percent' }
+     ],
+          identification: [ { position:60, label:'Attend Percent' }
+           ]  
+        }
+    AttendPercent;
+    @UI:{ lineItem: [{position:70, label:'Status' },
+    { type: #FOR_ACTION, dataAction : 'AttendPercent', label: 'Eligibility' }
+     ],
+          identification: [ { position:70, label:'Status' },
+          { type: #FOR_ACTION, dataAction : 'AttendPercent', label: 'Eligibility' } 
+          ] ,
+          textArrangement: #TEXT_ONLY 
+        }
+        
+   Status;
+
+    /* Associations */
+    @UI.lineItem: [ { position: 10, label: 'Exam List' } ]
+    _exams;
+
+    @UI.lineItem: [ { position: 20, label: 'Library Records' } ]
+    _library;
+
+    @UI.lineItem: [ { position: 30, label: 'Attendance History' } ]
+    _attendance;
+}
