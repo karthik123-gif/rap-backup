@@ -1,0 +1,5 @@
+@EndUserText.label: 'service def'
+define service ZSTUDENT_FU_sd {
+  expose ZSTUDENT_FU_p;
+  expose ZATTACHMENT_FU_p;
+}

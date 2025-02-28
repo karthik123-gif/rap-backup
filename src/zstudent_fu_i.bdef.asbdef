@@ -1,0 +1,63 @@
+managed implementation in class zbp_student_fu_i unique;
+strict ( 1 );
+with draft;
+define behavior for zstudent_fu_i alias Student
+persistent table zstudent_fu
+draft table zstudent_fu_id
+lock master
+total etag Locallastchangedat
+authorization master ( instance )
+etag master Lastchangedat
+{
+  create;
+  update;
+  delete;
+  association _Attachments { create; with draft; }
+  field ( numbering : managed, readonly ) Id;
+  draft action Edit;
+  draft action Activate;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare;
+
+  //Kopyalama için  FACTORY ACTION ekleme
+  factory action copyStudent[1];
+
+  static factory action createStudent[1];
+
+  mapping for zstudent_fu
+  {
+    Id = id;
+    Firstname = firstname;
+    Lastname = lastname;
+    Age = age;
+    Course = course;
+    Courseduration = courseduration;
+    Dob = dob;
+    Gender = gender;
+    Lastchangedat = lastchangedat;
+    Locallastchangedat = locallastchangedat;
+    Status = status;
+  }
+}
+
+define behavior for ZATTACHMENT_FU_i alias Attachments
+persistent table ZATTACHMENT_FU
+draft table ZATTACH_d_FU_i
+lock dependent by _Student
+authorization dependent by _Student
+etag master LastChangedat
+{
+  update;
+  delete;
+  field ( readonly ) Id;
+  association _Student { with draft; }
+  mapping for ZATTACHMENT_FU{
+    AttachId    = attach_id;
+    Attachment  = attachment;
+    Comments    = comments;
+    Filename    = filename;
+    Id          = id;
+    Mimetype    = mimetype;
+  }
+}
